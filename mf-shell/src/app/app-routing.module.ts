@@ -1,14 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {loadRemoteModule} from '@angular-architects/module-federation'
+import { loadRemoteModule } from '@angular-architects/module-federation'
 
 const routes: Routes = [
-  {path: '', loadChildren: () => loadRemoteModule({
-    type: 'module',
-    remoteEntry: "http://localhost:4201/remoteEntry.js",
-    exposedModule: "./ProductsModule",
-  }).then((m) => m.ProductsModule)
-}
+  {
+    path: '', loadChildren: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: "http://localhost:4201/remoteEntry.js",
+      exposedModule: "./ProductsModule",
+    }).then((m) => m.ProductsModule)
+  },
+  {
+    path: 'payment', loadComponent: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: "http://localhost:4202/remoteEntry.js",
+      exposedModule: "./PaymentComponent",
+    }).then((c) => c.PaymentComponent)
+  }
 ];
 
 @NgModule({
